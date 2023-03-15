@@ -1,0 +1,12 @@
+Kleisli:
+  FusionFiles:
+    Pdf:
+      pathToWkhtmltopdf: '/usr/local/bin/wkhtmltopdf'
+Neos:
+  Neos:
+    fusion:
+      autoInclude:
+        'Kleisli.FusionFiles.Pdf': TRUE
+  Fusion:
+    defaultContext:
+      'FusionFiles.Pdf': 'Kleisli\FusionFiles\Pdf\Eel\Helper\PdfHelper'

@@ -1,0 +1,31 @@
+prototype(Kleisli.FusionFiles.Pdf:Helper.Html4Pdf) < prototype(Neos.Fusion:Component) {
+
+    cssRessourcePaths = Neos.Fusion:DataStructure
+    html = ''
+    wrap = true
+
+    renderer = Neos.Fusion:Match {
+        @subject = ${props.wrap ? 'wrap' : 'noWrap'}
+        wrap = Neos.Fusion:Join {
+            startHead = '<!DOCTYPE html><html><head><meta charset="UTF-8" />'
+            css = Neos.Fusion:Loop {
+                items = ${props.cssRessourcePaths}
+                itemRenderer = Neos.Fusion:Tag {
+                    tagName = 'link'
+                    selfClosingTag = true
+                    attributes {
+                        rel = 'stylesheet'
+                        type = 'text/css'
+                        href = Neos.Fusion:ResourceUri {
+                            path = ${item}
+                        }
+                    }
+                }
+            }
+            startBody = '</head><body>'
+            content = ${props.html}
+            end = '</body></html>'
+        }
+        noWrap = ${props.html}
+    }
+}

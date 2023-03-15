@@ -1,0 +1,18 @@
+prototype(Kleisli.FusionFiles.Pdf:Helper.PdfOnlyWrapper) < prototype(Neos.Fusion:Join) {
+
+    @if.pdfOnlyInBackend = ${node.context.inBackend && q(node).property('pdfVisibility') == 'pdfOnly'}
+
+    start = '<div style ="border: 2px solid lightgray;" title="Wird nur im PDF angezeigt.">'
+    icon =  Neos.Fusion:Join {
+        start = '<div style="text-align: right;">'
+        start.@position = 'start'
+        icon = Profolio.App:Partial.Icon {
+            icon = 'file-pdf'
+        }
+        end = "</div>"
+        end.@position = 'end'
+    }
+
+    value = ${value}
+    end = "</div>"
+}

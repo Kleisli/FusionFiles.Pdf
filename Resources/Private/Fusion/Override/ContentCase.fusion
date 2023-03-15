@@ -1,0 +1,5 @@
+prototype(Neos.Neos:ContentCase) {
+    pdf  = Kleisli.FusionFiles:Helper.RenderFileMatcher {
+        fileExtension = 'pdf'
+    }
+}

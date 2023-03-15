@@ -1,0 +1,19 @@
+{
+    "description": "",
+    "type": "neos-package",
+    "name": "kleisli/fusionfiles-pdf",
+    "require": {
+        "kleisli/fusionfiles": "*",
+        "knplabs/knp-snappy": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kleisli\\FusionFiles\\Pdf\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Kleisli.FusionFiles.Pdf"
+        }
+    }
+}

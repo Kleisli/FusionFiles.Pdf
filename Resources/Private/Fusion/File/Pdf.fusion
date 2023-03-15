@@ -1,0 +1,56 @@
+prototype(Kleisli.FusionFiles.Pdf:File.Pdf) < prototype(Neos.Fusion:Component) {
+
+    showAsHtml = ${request.arguments.showAsHtml}
+    disposition = 'inline'
+    filename = false
+
+    cssRessourcePaths = Neos.Fusion:DataStructure {
+        index = 'resource://Profolio.Site/Public/Frontend/index.css'
+        pdf = 'resource://Profolio.Site/Public/Frontend/pdf.css'
+    }
+
+    htmlContent = Neos.Fusion:DataStructure {
+        header = ''
+        body = ''
+        footer = ''
+    }
+
+    renderer = Neos.Fusion:Component {
+        @apply.props = ${props}
+
+        header = Kleisli.FusionFiles.Pdf:Helper.Html4Pdf {
+            wrap = ${!props.showAsHtml}
+            cssRessourcePaths = ${props.cssRessourcePaths}
+            html = ${props.htmlContent.header}
+        }
+
+        body = Kleisli.FusionFiles.Pdf:Helper.Html4Pdf {
+            wrap = ${!props.showAsHtml}
+            cssRessourcePaths = ${props.cssRessourcePaths}
+            html = ${props.htmlContent.body}
+        }
+
+        footer = Kleisli.FusionFiles.Pdf:Helper.Html4Pdf {
+            wrap = ${!props.showAsHtml}
+            cssRessourcePaths = ${props.cssRessourcePaths}
+            html = ${props.htmlContent.footer}
+        }
+
+        renderer = Neos.Fusion:Http.Message {
+            httpResponseHead {
+                headers = Neos.Fusion:DataStructure {
+                    Content-Type = ${props.showAsHtml ? 'text/html' : 'application/pdf'}
+                    Content-Disposition = ${props.disposition + (props.filename ? '; filename="' + props.filename + '.pdf"' : '')}
+                }
+            }
+            body = Neos.Fusion:Match {
+                @subject = ${props.showAsHtml ? 'html' : 'pdf'}
+                pdf = ${FusionFiles.Pdf.render(props.body, props.header, props.footer)}
+                html = Kleisli.FusionFiles.Pdf:Helper.Html4Pdf {
+                    cssRessourcePaths = ${props.cssRessourcePaths}
+                    html = ${props.header + props.body + props.footer}
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+prototype(Kleisli.FusionFiles.Pdf:Helper.IsVisible) < prototype(Neos.Fusion:Case) {
+    pdf {
+        condition = ${request.format == 'pdf'}
+        renderer = ${q(node).property('pdfVisibility') != 'hideInPdf'}
+    }
+    default {
+        condition = true
+        renderer = ${node.context.inBackend || q(node).property('pdfVisibility') != 'pdfOnly'}
+    }
+}

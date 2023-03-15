@@ -1,0 +1,6 @@
+root {
+    // Hook into the root matcher to change rendering for PDF requests
+    pdf = Kleisli.FusionFiles:Helper.RenderFileMatcher {
+        fileExtension = 'pdf'
+    }
+}

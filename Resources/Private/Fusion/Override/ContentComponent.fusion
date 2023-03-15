@@ -1,0 +1,9 @@
+###
+## Add your overrides to 3rd party fusion code here
+###
+prototype(Neos.Neos:ContentComponent){
+    renderer {
+        @if.pdfVisibilityCheck = Kleisli.FusionFiles.Pdf:Helper.IsVisible
+    }
+    renderer.@process.pdfOnlyWrapper = Kleisli.FusionFiles.Pdf:Helper.PdfOnlyWrapper
+}

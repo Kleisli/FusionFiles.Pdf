@@ -1,0 +1,20 @@
+'Kleisli.FusionFiles.Pdf:Mixin.PdfVisibility':
+  properties:
+    pdfVisibility:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Anzeigeregeln für Pdf-Export'
+        reloadIfChanged: true
+        inspector:
+          group: 'visibility'
+          position: 500
+          editor: Neos.Neos/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            values:
+              '':
+                label: 'im PDF und HTML anzeigen'
+              'hideInPdf':
+                label: 'im PDF nicht anzeigen'
+              'pdfOnly':
+                label: 'nur im PDF anzeigen'
