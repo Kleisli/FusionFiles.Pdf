@@ -28,4 +28,5 @@ prototype(Kleisli.FusionFiles.Pdf:Helper.Html4Pdf) < prototype(Neos.Fusion:Compo
         }
         noWrap = ${props.html}
     }
+    @process.debugDump = Neos.Fusion:DebugDump
 }
