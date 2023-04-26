@@ -1,5 +1,5 @@
 {
-    "description": "",
+    "description": "Generate pdf files with Neos.Fusion using wkhtmltopdf",
     "type": "neos-package",
     "name": "kleisli/fusionfiles-pdf",
     "require": {

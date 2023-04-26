@@ -1,7 +1,5 @@
 # Kleisli.FusionFiles.Pdf
-***
-Serve pdf files with Neos.Fusion using wkhtmltopdf
-***
+Generate pdf files with Neos.Fusion using wkhtmltopdf
 
 ## Requirements
 * [wkhtmltopdf](https://github.com/wkhtmltopdf/wkhtmltopdf)
