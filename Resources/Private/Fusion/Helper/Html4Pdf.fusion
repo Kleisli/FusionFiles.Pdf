@@ -16,9 +16,19 @@ prototype(Kleisli.FusionFiles.Pdf:Helper.Html4Pdf) < prototype(Neos.Fusion:Compo
                     attributes {
                         rel = 'stylesheet'
                         type = 'text/css'
-                        href = Neos.Fusion:ResourceUri {
-                            path = ${item}
+                        href = Neos.Fusion:Case {
+                            resource {
+                                condition = ${String.startsWith(item, 'resource://')}
+                                renderer = Neos.Fusion:ResourceUri {
+                                    path = ${item}
+                                }
+                            }
+                            default {
+                                condition = ${true}
+                                renderer = ${item}
+                            }
                         }
+
                     }
                 }
             }

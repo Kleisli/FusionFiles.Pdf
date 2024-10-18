@@ -4,10 +4,7 @@ prototype(Kleisli.FusionFiles.Pdf:File.Pdf) < prototype(Neos.Fusion:Component) {
     disposition = 'inline'
     filename = false
 
-    cssRessourcePaths = Neos.Fusion:DataStructure {
-        index = 'resource://Profolio.Site/Public/Frontend/index.css'
-        pdf = 'resource://Profolio.Site/Public/Frontend/pdf.css'
-    }
+
 
     htmlContent = Neos.Fusion:DataStructure {
         header = ''
