@@ -1,5 +1,6 @@
 prototype(Kleisli.FusionFiles.Pdf:Helper.Html4Pdf) < prototype(Neos.Fusion:Component) {
 
+    addCssAsInline = false
     cssRessourcePaths = Neos.Fusion:DataStructure
     html = ''
     wrap = true
@@ -10,25 +11,36 @@ prototype(Kleisli.FusionFiles.Pdf:Helper.Html4Pdf) < prototype(Neos.Fusion:Compo
             startHead = '<!DOCTYPE html><html><head><meta charset="UTF-8" />'
             css = Neos.Fusion:Loop {
                 items = ${props.cssRessourcePaths}
-                itemRenderer = Neos.Fusion:Tag {
-                    tagName = 'link'
-                    selfClosingTag = true
-                    attributes {
-                        rel = 'stylesheet'
-                        type = 'text/css'
-                        href = Neos.Fusion:Case {
-                            resource {
-                                condition = ${String.startsWith(item, 'resource://')}
-                                renderer = Neos.Fusion:ResourceUri {
-                                    path = ${item}
+                itemRenderer = Neos.Fusion:Case {
+                    inline {
+                        condition = ${props.addCssAsInline && File.exists(item)}
+                        renderer = Neos.Fusion:Tag {
+                            tagName = 'style'
+                            content = ${FusionFiles.Pdf.replaceRelativeStaticResourcesPathWithAbsolutePath(File.readFile(item))}
+                        }
+                    }
+                    link {
+                        condition = ${true}
+                        renderer = Neos.Fusion:Tag {
+                            tagName = 'link'
+                            selfClosingTag = true
+                            attributes {
+                                rel = 'stylesheet'
+                                type = 'text/css'
+                                href = Neos.Fusion:Case {
+                                    resource {
+                                        condition = ${String.startsWith(item, 'resource://')}
+                                        renderer = Neos.Fusion:ResourceUri {
+                                            path = ${item}
+                                        }
+                                    }
+                                    default {
+                                        condition = ${true}
+                                        renderer = ${item}
+                                    }
                                 }
                             }
-                            default {
-                                condition = ${true}
-                                renderer = ${item}
-                            }
                         }
-
                     }
                 }
             }

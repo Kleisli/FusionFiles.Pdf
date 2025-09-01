@@ -1,44 +1,21 @@
 <?php
 namespace Kleisli\FusionFiles\Pdf\Eel\Helper;
 
-/*
- * This file is part of the Neos.Eel package.
- *
- * (c) Contributors of the Neos Project - www.neos.io
- *
- * This package is Open Source Software. For the full copyright and license
- * information, please view the LICENSE file which was distributed with this
- * source code.
- */
-
 use Knp\Snappy\Pdf;
 use Neos\Flow\Annotations as Flow;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Configuration\ConfigurationManager;
-use Neos\Flow\Utility\Environment;
 use Neos\Fusion\Core\Cache\ContentCache;
 
 class PdfHelper implements ProtectedContextAwareInterface
 {
-    /**
-     * @Flow\Inject
-     * @var ConfigurationManager
-     */
-    protected $configurationManager;
+    #[Flow\Inject]
+    protected ConfigurationManager $configurationManager;
 
-    /**
-     * @Flow\Inject
-     */
+    #[Flow\Inject]
     protected ContentCache $contentCache;
 
 
-    /**
-     *
-     * @param string $body
-     * @param string $header
-     * @param string $footer
-     * @return string
-     */
     public function render(string $body, string $header='', string $footer=''): string
     {
         $header = $this->contentCache->processCacheSegments($header);
@@ -51,6 +28,7 @@ class PdfHelper implements ProtectedContextAwareInterface
         $snappy->setOption('footer-spacing', '0');
         $snappy->setOption('header-spacing', '0');
         $snappy->setOption('load-error-handling', 'ignore');
+        $snappy->setOption("enable-local-file-access",true);
 
         $temporaryPathAndFilename = sys_get_temp_dir() .'/'. uniqid('', true);
 
@@ -63,6 +41,11 @@ class PdfHelper implements ProtectedContextAwareInterface
         $snappy->setOption('footer-html', $temporaryPathAndFilename.'-footer.html');
 
         return $snappy->getOutputFromHtml($body);
+    }
+
+    public function replaceRelativeStaticResourcesPathWithAbsolutePath(string $input): string
+    {
+        return str_replace('/_Resources/Static/Packages', 'https://'.$_SERVER['SERVER_NAME'].'/_Resources/Static/Packages', $input);
     }
 
     /**
