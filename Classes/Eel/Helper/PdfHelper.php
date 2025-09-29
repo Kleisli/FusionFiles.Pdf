@@ -27,6 +27,8 @@ class PdfHelper implements ProtectedContextAwareInterface
         $snappy->setOption('margin-left', '0');
         $snappy->setOption('footer-spacing', '0');
         $snappy->setOption('header-spacing', '0');
+        $snappy->setOption('margin-top', '27');
+        $snappy->setOption('margin-bottom', '22');
         $snappy->setOption('load-error-handling', 'ignore');
         $snappy->setOption("enable-local-file-access",true);
 
